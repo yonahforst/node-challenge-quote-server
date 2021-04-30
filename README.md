@@ -80,22 +80,24 @@ Well done!
 - Push your working server on your Github account
 - Read the following ideas for further work
 
-## Level 2 Challenge - allow quote _searches_!
+## Level 2 Challenge - respond from url with _parameter_!
 
 ### Overview
 
-In this level of the challenge you will allow the user of your quotes API to _search_ your list of quotes.
+In this exercise the user will send data trought the url.
 
-It should work with requests like this one:
+When the user changes the url like this:
 
 - `/quotes/search?term=life`
 - `/quotes/search?term=success`
 - `/quotes/search?term=miss`
 
+The server will respond with `life`, `success`, `miss`
+
 Extra (bonus) requirements:
 
 - bonus: make your search case-insensitive
-- bonus: make the search return matches on quote OR author text.
+- modificate the parameter before the server response
 
 ### Go ahead!
 
@@ -105,11 +107,10 @@ If you think you know how to do that, go ahead!
 
 #### Algorithm
 
-1. receive a search term (a string) to look for
-2. then find any quotes that contain that string in their quote text
-3. then return only those matching quotes
+1. receive a term from the URL
+2. make the server respond with it
 
-As with `/quotes`, your new route should return a JSON array of quotes. If you find none that match, it should return an empty array, `[]`.
+For this exercise only an endpoint is needed.
 
 #### Getting parameter(s) from the URL
 
@@ -117,28 +118,41 @@ We have to learn how to get the search term from the user. This is very easy to 
 
 Users of the API will add their search term to their URL with a _query parameter_ called `term`.
 
-So, for example, if the user wanted to search for quotes about life, their HTTP request might have this target: `/quotes/search?term=life`
+So, for example, if the user wanted to print the word `life` , their HTTP request might be: `/quotes/search?term=life`
 
 You should [read about the query string part of the URL, here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web).
 
 #### So, how do I get these query parameters when using Express?
 
-Look at [the code of this example glitch](https://glitch.com/~cyf-query-params).
+In express, we use the object `req.query`, to which we have to include the name of the parameter we used `.term`, it will have all the parameters passed to us in the URL's query string. [The official documentation is here](https://expressjs.com/en/api.html#req.query).
 
-Then use it by clicking these links and then changing the search word.
+To use it we need to declare it as a variable.
 
-- https://cyf-query-params.glitch.me/search?word=Mussie
-- https://cyf-query-params.glitch.me/search?word=holiday
+#### An intermediate step, use of the _parameter_
 
-In express, we use the object `req.query`, which will have all the parameters passed to us in the URL's query string. [The official documentation is here](https://expressjs.com/en/api.html#req.query).
+After learning how to declare and use the parameter we are gonna use it to search specific quotes from the JSON.
 
-#### An intermediate step - echo the parameter
+It should work with requests like this one:
 
-Once you think you understand the above you might want to make a simple test route that takes a query parameter and just repeats the word back to the user.
+- `/quotes/search?term=life`
 
-e.g. `/echo?word=ismail` should just return `You said 'ismail'`
+The algorithm should:
 
-then _finally_ you'll be ready to use this variable in searching through your quotes!
+1. receive a search term (a string) to look for
+2. then find any quotes that contain that string in their quote text
+3. then return only those matching quotes
+
+As with `/quotes`, your new route should return a JSON array of quotes. If you find none that match, it should return an empty array, `[]`.
+
+Remember that each quote is a `property` of each object of the array
+```
+[
+  {
+    "quote": "Life isn’t about getting and having, it’s about giving and being.",
+    "author": "Kevin Kruse"
+  }
+]
+```
 
 ### Searching for quotes - a pure JS exercise
 
@@ -156,7 +170,7 @@ Once you've got that working, you can copy-paste your function into your Express
 
 Well done!
 
-- Mark the relevant Google Classroom assignment done, but _before you do_, add your two links (1 for the glitch project and 1 for your server address) as _link attachments_ to the assignment. (Instructions on this are in the assignment)
+- Push your working server to your Github
 
 - Also post the two links (as one message) [in THIS thread on Slack](https://codeyourfuture.slack.com/archives/CEDK6JPKQ/p1557924290017700).
 
