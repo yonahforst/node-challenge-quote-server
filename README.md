@@ -20,15 +20,9 @@ Fork this repository and read this file. This document outlines all of this task
 
 ## Want to run your code on the internet?
 
-If you want to share your server with other people the easiest way to do this is to use Glitch
-
-- Remix [this server on glitch -
-  https://glitch.com/~cyf-quotes-start](https://glitch.com/~cyf-quotes-start)
-- Name your new server `yourname-quote-server`
-- Make sure you're logged in so that it saves
-- Check that it is working by making a request to `/`
-- Take time to read the comments
-- Copy the code you've written to Glitch
+- Open Postman app
+- run `npm install` and `npm start` in your folder
+- use `http://localhost:5000` as URL in the Postman
 
 ## Level 1 Challenge - make the quote server
 
@@ -37,7 +31,7 @@ Your server must have at least these two "routes":
 - `/quotes` - returns ALL of the quotes, as JSON.
 - `/quotes/random` - returns ONE of the quotes, picked differently at random each time it is requested.
 
-A list of quotes (in JSON format) is provided in this repo [quotes.json](./quotes.json), but it will also be included in the starter project on glitch. Each quote is a simple object with a quote and an author.
+A list of quotes (in JSON format) is provided in this repo [quotes.json](./quotes.json). Each quote is a simple object with a quote and an author.
 
 Try to use what you know to do this challenge on your own. However, there are some steps to guide you, below.
 
@@ -47,7 +41,7 @@ Add a `/quotes` route to return _all_ of the quotes as JSON.
 
 Note that the quotes have already been loaded for you from a JSON file.
 
-Test that your server successfully serves all of the quotes as json by making a request for /quotes from your new server.
+Test that your server successfully serves all of the quotes as json on Postman by making a request for /quotes from your new server.
 
 ### Help - how do I add a route?
 
@@ -83,9 +77,7 @@ Be sure to check that the previous routes `/quotes` and `/` are still working, t
 
 Well done!
 
-- On Slack, post the address of your server.
-- Also post the address when you mark your google classroom assignment done.
-- You might want to download your project for safekeeping. (Tools: Git, Import, and Export: Download Project)
+- Push your working server on your Github account
 - Read the following ideas for further work
 
 ## Level 2 Challenge - allow quote _searches_!

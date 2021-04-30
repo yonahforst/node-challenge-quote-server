@@ -1,3 +1,4 @@
+const { response } = require("express");
 // server.js
 // This is where your node app starts
 
@@ -29,6 +30,8 @@ function pickFromArray(arr) {
 }
 
 //Start our server so that it listens for HTTP requests!
-const listener = app.listen(process.env.PORT, function () {
-  console.log("Your app is listening on port " + listener.address().port);
+let port = 5000;
+
+app.listen( port, function () {
+  console.log("Your app is listening on port " + port);
 });
