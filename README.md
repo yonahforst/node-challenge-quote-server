@@ -7,7 +7,7 @@
 
 ## Overview: what is this challenge?
 
-In this challenge you must make a server (using Node and Express) which serves quotes, in JSON form.
+In this challenge you have to create a server (using Node and Express) which serves quotes, in JSON format.
 
 In the _extended_ work of this challenge, you also make a React app which displays the quotes retrieved from your new server.
 
@@ -84,7 +84,7 @@ Well done!
 
 ### Overview
 
-In this exercise the user will send data trought the url.
+In this exercise the user will send data through the url.
 
 When the user changes the url like this:
 
@@ -97,13 +97,11 @@ The server will respond with `life`, `success`, `miss`
 Extra (bonus) requirements:
 
 - bonus: make your search case-insensitive
-- modificate the parameter before the server response
+- bonus: make the search return matches on quote OR author text.
 
 ### Go ahead!
 
 If you think you know how to do that, go ahead!
-
-### In more detail
 
 #### Algorithm
 
@@ -172,8 +170,6 @@ Well done!
 
 - Push your working server to your Github
 
-- Also post the two links (as one message) [in THIS thread on Slack](https://codeyourfuture.slack.com/archives/CEDK6JPKQ/p1557924290017700).
-
 ### Ideas for further work
 
 - Use YOUR favourite quotes
@@ -223,21 +219,17 @@ Note I didn't add a "get new quote" button here.
 
 #### Enabling CORS on the Express app
 
-You'll have to install and enable CORS in order to allow your JSON to be loaded from a different server (glitch.me) than your React app was initially loaded (probably netlify.com).
+You'll have to install and enable CORS on your server in order to allow your JSON to be loaded from a different server than your React app has been loaded from.
 
 in `package.json` add a dependency for `"cors": "^2.8.5"`
 
 Then in your `server.js` add...
 
-`var cors = require('cors')`
+`const cors = require('cors')`
 
 and
 
 `app.use(cors())`
 
-Read more or CORS [here](https://codeyourfuture.github.io/syllabus-master/others/cors.html)
-and in CORS in Express [here](https://expressjs.com/en/resources/middleware/cors.html).
+Read more about CORS in Express [here](https://expressjs.com/en/resources/middleware/cors.html).
 
-### Credits
-
-I found the quotes list here https://gist.githubusercontent.com/nasrulhazim/54b659e43b1035215cd0ba1d4577ee80/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json

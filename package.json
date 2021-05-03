@@ -10,19 +10,7 @@
     "start": "nodemon server.js"
   },
   "dependencies": {
-    "express": "^4.16.4",
-    "nodemon": "^2.0.7"
+    "express": "^4.16.4"
   },
-  "engines": {
-    "node": "8.x"
-  },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
-  },
-  "license": "MIT",
-  "keywords": [
-    "node",
-    "glitch",
-    "express"
-  ]
+  "license": "MIT"
 }
