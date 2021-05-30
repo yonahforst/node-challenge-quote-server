@@ -1,7 +1,7 @@
-const { response } = require("express");
 // server.js
 // This is where your node app starts
 
+const sample = require('lodash/sample')
 //load the 'express' module which makes writing webservers easy
 const express = require("express");
 const app = express();
@@ -23,17 +23,46 @@ app.get("/quotes", function (request, response) {
 });
 
 app.get("/quotes/random", function (request, response) {
-  const randomQuote = pickFromArray(quotes)
+  const randomQuote = sample(quotes)
   response.send(randomQuote);
+});
+
+// search for quote with the word passed in the query parameter 'term'
+app.get("/quotes/search", function (request, response) {
+  // get the search term from the query parameters
+  let term = request.query.term
+
+  // find all quotes containing the search term
+  let matches = findQuotesContainingTerm(quotes, term)
+  
+  // respond with the matches
+  response.send(matches);
 });
 //...END OF YOUR CODE
 
-//You can use this function to pick one element at random from a given array
-//example: pickFromArray([1,2,3,4]), or
-//example: pickFromArray(myContactsArray)
-//
-function pickFromArray(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+// //You can use this function to pick one element at random from a given array
+// //example: pickFromArray([1,2,3,4]), or
+// //example: pickFromArray(myContactsArray)
+// //
+// function pickFromArray(arr) {
+//   return arr[Math.floor(Math.random() * arr.length)];
+// }
+
+// accepts an array of quotes and a term, returns all quotes containing that term
+// in the author name or quote text
+function findQuotesContainingTerm(quotes, term) {
+  let lowercaseTerm = term.toLowerCase()
+
+  // look at each quote object: 
+  let matches = quotes.filter(item => {
+    const lowercaseQuote = item.quote.toLowerCase()
+    const lowercaseAuthor = item.author.toLowerCase()
+    //   if author or quote contains term, include it in the result
+    return lowercaseQuote.includes(lowercaseTerm) || lowercaseAuthor.includes(lowercaseTerm)
+  })
+
+  // return all matches
+  return matches
 }
 
 //Start our server so that it listens for HTTP requests!
