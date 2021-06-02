@@ -9,61 +9,66 @@ const app = express();
 //load the quotes JSON
 const quotes = require("./quotes.json");
 
-// Now register handlers for some routes:
-//   /                  - Return some helpful welcome info (text)
-//   /quotes            - Should return all quotes (json)
-//   /quotes/random     - Should return ONE quote (json)
-app.get("/", function (request, response) {
-  response.send("Neill's Quote Server!  Ask me for /quotes/random, or /quotes");
-});
+
 
 //START OF YOUR CODE...
+// GET - Read all quotes
 app.get("/quotes", function (request, response) {
   response.send(quotes);
 });
 
-app.get("/quotes/random", function (request, response) {
-  const randomQuote = sample(quotes)
-  response.send(randomQuote);
-});
+// GET - Returns a single quote object (by it's position in the array)
+app.get('/quotes/:id', function (request, response) {
+  const index = parseInt(request.params.id) - 1
+  const quote = quotes[index]
+  if (quote) {
+    response.send(quote)
+  } else {
+    response.status(404).send()
+  }
+})
 
-// search for quote with the word passed in the query parameter 'term'
-app.get("/quotes/search", function (request, response) {
-  // get the search term from the query parameters
-  let term = request.query.term
+// POST - Create a new quote (add it to the end of the array)
+app.post('/quotes', function (request, response) {
+  // get the new quote object
+  const quote = {
+    quote: request.query.quote,
+    author: request.query.author,
+  }
+  // add it to the quotes array
+  quotes.push(quote)
+  // return the id for the new quote object
+  response.status(201).send({ id: quotes.length })
+})
 
-  // find all quotes containing the search term
-  let matches = findQuotesContainingTerm(quotes, term)
-  
-  // respond with the matches
-  response.send(matches);
-});
-//...END OF YOUR CODE
+// PUT - Update an existing quote
+app.put('/quotes/:id', function (request, response) {
+  // get the new quote object
+  const quote = {
+    quote: request.query.quote,
+    author: request.query.author,
+  }
+  // get the index of existing quote object
+  const index = parseInt(request.params.id) -1
 
-// //You can use this function to pick one element at random from a given array
-// //example: pickFromArray([1,2,3,4]), or
-// //example: pickFromArray(myContactsArray)
-// //
-// function pickFromArray(arr) {
-//   return arr[Math.floor(Math.random() * arr.length)];
-// }
+  // replace existing quote object at specified index with new one
+  const result = quotes.splice(index, 1, quote)
+  console.log('removed quote', result)
 
-// accepts an array of quotes and a term, returns all quotes containing that term
-// in the author name or quote text
-function findQuotesContainingTerm(quotes, term) {
-  let lowercaseTerm = term.toLowerCase()
+  // return new quote object
+  response.send(quote)
+})
 
-  // look at each quote object: 
-  let matches = quotes.filter(item => {
-    const lowercaseQuote = item.quote.toLowerCase()
-    const lowercaseAuthor = item.author.toLowerCase()
-    //   if author or quote contains term, include it in the result
-    return lowercaseQuote.includes(lowercaseTerm) || lowercaseAuthor.includes(lowercaseTerm)
-  })
+// DELETE - Delete an existing quote from the array
+app.delete('/quotes/:id', function (request, response) {
+  // get the index of existing quote object
+  const index = parseInt(request.params.id) -1
 
-  // return all matches
-  return matches
-}
+  // replace existing quote object at specified index with undefined
+  quotes.splice(index, 1, undefined)
+  // return status 204 - no content
+  response.status(204).send()
+})
 
 //Start our server so that it listens for HTTP requests!
 let port = 5000;
